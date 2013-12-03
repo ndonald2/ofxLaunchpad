@@ -29,7 +29,7 @@ public:
 	void begin();
 	void end();
 	
-	void set(ofPixels& pix, bool clear = true, bool copy = true);
+	void set(ofPixels& pix);
 	void setBrightness(float brightness); // 0 to 1
 	void setLedAutomap(int col, ofxLaunchpadColor color);
 	void setLedGrid(int col, int row, ofxLaunchpadColor color);

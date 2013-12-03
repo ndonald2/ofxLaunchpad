@@ -188,7 +188,7 @@ ofxLaunchpadColor ofxLaunchpad::getLedGrid(int col, int row) const {
 	return buffer[row * cols + col];
 }
 
-void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {
+void ofxLaunchpad::set(ofPixels& pix) {
 	int i = 0;
 	for(int y = 0; y < 8; y++) {
 		for(int x = 0; x < 8; x += 2) {
