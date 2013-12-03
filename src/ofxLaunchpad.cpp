@@ -192,8 +192,9 @@ void ofxLaunchpad::set(ofPixels& pix, bool clear, bool copy) {
 	int i = 0;
 	for(int y = 0; y < 8; y++) {
 		for(int x = 0; x < 8; x += 2) {
-			ofxLaunchpadColor first(pix.getColor(x, y));
-			ofxLaunchpadColor second(pix.getColor(x + 1, y));
+            // do NOT want to use clear/copy flags for rapid LED setting
+			ofxLaunchpadColor first(pix.getColor(x, y), false, false);
+			ofxLaunchpadColor second(pix.getColor(x + 1, y), false, false);
 			midiOut.sendNoteOn(3, first.getMidi(), second.getMidi());
 			buffer[i++] = first;
 			buffer[i++] = second;

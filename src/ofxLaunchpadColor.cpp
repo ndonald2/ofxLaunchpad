@@ -24,7 +24,9 @@ ofxLaunchpadColor::ofxLaunchpadColor(bool on, bool clear, bool copy)
 	red = green = (on ? 3 : 0);
 }
 
-ofxLaunchpadColor::ofxLaunchpadColor(ofColor color) {
+ofxLaunchpadColor::ofxLaunchpadColor(ofColor color, bool clear, bool copy)
+:clear(clear)
+,copy(copy) {
 	red = ofMap(color.r, 0, 255, 0, 3, true);
 	green = ofMap(color.g, 0, 255, 0, 3, true);
 }

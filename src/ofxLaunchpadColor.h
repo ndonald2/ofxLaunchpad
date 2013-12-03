@@ -12,7 +12,7 @@ public:
 	ofxLaunchpadColor(int red = 0, int green = 0, bool clear = true, bool copy = true);
 	ofxLaunchpadColor(bool on, bool clear = true, bool copy = true);
 	ofxLaunchpadColor(BrightnessMode brightnessMode);
-	ofxLaunchpadColor(ofColor color);
+	ofxLaunchpadColor(ofColor color, bool clear = true, bool copy = true);
 	operator ofColor() const;
 	int getMidi() const;
 	bool isOn() const;
