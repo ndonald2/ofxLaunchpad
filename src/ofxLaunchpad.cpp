@@ -13,16 +13,55 @@ const int colMask = 15;
 const int cols = 9;
 const int automapRow = 8;
 const int totalButtons = 80;
-	
+
+void ofxLaunchpad::setup(ofxLaunchpadListener* listener) {
+    setup(-1, listener);
+}
+
 void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
+    
 	midiOut.listPorts();
-	midiOut.openPort(port);
+    
+    if (port >= 0) {
+        midiOut.openPort(port);
+    }
+    else {
+        // find it
+        auto it = std::find(midiOut.portNames.begin(), midiOut.portNames.end(), "Launchpad");
+        if (it == midiOut.portNames.end())
+        {
+            // name not in vector, assume it's port 1
+            midiOut.openPort(1);
+        } else
+        {
+            int index = std::distance(midiOut.portNames.begin(), it);
+            midiOut.openPort(index);
+        }
+    }
 	
 	setMappingMode();
 	setAll();
 	
 	midiIn.listPorts();
-	midiIn.openPort(port);
+    if (port >= 0) {
+        
+        midiIn.openPort(port);
+    }
+    else {
+        // find it
+        auto it = std::find(midiIn.portNames.begin(), midiIn.portNames.end(), "Launchpad");
+        if (it == midiIn.portNames.end())
+        {
+            // name not in vector, assume it's port 1
+            midiIn.openPort(1);
+        } else
+        {
+            int index = std::distance(midiIn.portNames.begin(), it);
+            midiIn.openPort(index);
+        }
+        
+    }
+    
 	midiIn.addListener(this);
 	
 	if(listener != NULL) {

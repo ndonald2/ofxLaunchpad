@@ -16,7 +16,9 @@
 #include "ofxLaunchpadColor.h"
 
 class ofxLaunchpad : public ofxMidiListener, public ofBaseDraws {
-public:	
+public:
+    // version without port num will automatically attempt to find a device named "Launchpad"
+    void setup(ofxLaunchpadListener* listener = NULL);
 	virtual void setup(int port, ofxLaunchpadListener* listener = NULL);
 	void addListener(ofxLaunchpadListener* listener);
 	void removeListener(ofxLaunchpadListener* listener);
