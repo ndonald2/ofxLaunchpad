@@ -20,6 +20,9 @@ void ofxLaunchpad::setup(ofxLaunchpadListener* listener) {
 
 void ofxLaunchpad::setup(int port, ofxLaunchpadListener* listener) {
     
+    lastBufIdx = 0;
+    pix.allocate(0, 0, OF_IMAGE_COLOR);
+    
 	midiOut.listPorts();
     
     if (port >= 0) {
@@ -242,6 +245,29 @@ void ofxLaunchpad::set(ofPixels& pix) {
 	}
 	 // any note on signifies that we're done with rapid update
 	midiOut.sendNoteOn(1, 127, 0);
+}
+
+void ofxLaunchpad::swap(ofPixels &newPix)
+{
+    pix.crop(0, 0, 8, 8);
+    
+    setBufferingMode(true, false, lastBufIdx, lastBufIdx > 0 ? 0 : 1);
+    
+    for (unsigned long c=0; c<8; c++)
+    {
+        for (unsigned long r=0; r<8; r++)
+        {
+            ofColor newColor = newPix.getColor(c, r);
+            ofColor oldcolor = pix.getColor(c, r);
+            if (newColor != oldcolor)
+            {
+                setLedGrid(c, r, ofxLaunchpadColor(newColor, false, false));
+            }
+        }
+    }
+    
+    pix = newPix;
+    lastBufIdx = (lastBufIdx+1) % 2;
 }
 
 void ofxLaunchpad::setBufferingMode(bool copy, bool flash, int update, int display) {

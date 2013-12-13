@@ -30,8 +30,9 @@ public:
 	
 	void begin();
 	void end();
-	
+    
 	void set(ofPixels& pix);
+    void swap(ofPixels& newPix); // more efficient verion of "set" that uses double-buffering and only writes diff
 	void setBrightness(float brightness); // 0 to 1
 	void setLedAutomap(int col, ofxLaunchpadColor color);
 	void setLedGrid(int col, int row, ofxLaunchpadColor color);
@@ -52,6 +53,8 @@ protected:
 	
 	ofFbo fbo;
 	ofPixels pix;
+    
+    int lastBufIdx;
 	
 	vector<ofxLaunchpadColor> buffer;
 	vector<ButtonEvent> lastEvent;
